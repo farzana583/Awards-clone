@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="homepage">
+    <style>
+
+        #intro {
+            height: 100%;
+        }
+        
+        #intro {
+            background: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full%20page/img%20%283%29.jpg")no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        
+        .top-nav-collapse {
+            background-color: #2c3f6b;
+          }
+          @media (max-width: 768px) {
+            .navbar:not(.top-nav-collapse) {
+              background-color: #24355C;
+            }
+          }
+          @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+              background-color: #24355C;
+            }
+          }
+    </style>
+</div>
+        <!--Mask-->
+        <div id="intro" class="view">
+
+            <div class="mask rgba-black-strong">
+
+                <div class="container-fluid d-flex align-items-center justify-content-center h-100">
+
+                    <div class="row d-flex justify-content-center text-center">
+
+                        <div class="col-md-10">
+
+                            <!-- Heading -->
+                            <h2 class="display-4 font-weight-bold white-text pt-5 mb-2"  style="color: aquamarine;">Nature</h2>
+                             <h6 style="color: ghostwhite;"><b> By:</b>Farzana Isack </h6>
+
+                            <!-- Divider -->
+                            <hr class="hr-light">
+
+                            <!-- Description -->
+                              <img src="https://ucarecdn.com/257afbc7-9e6d-4984-9939-f83076ad6d84/progressremovebgpreview.png" alt="">
+                            <button type="button" class="btn btn-outline-white">Below<i class="fa fa-book ml-2"></i></button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <br><br><br><br><br>
+
+        </div>
+        <!--/.Mask-->
+        
+
+   <div class="divp">
+<div class="container">
+
+    <div class="row">
+  {% for post in all_posts %}
+       
+            <div class="col-md-4 mt-5">
+                <div class="card">
+                    <img src="{{post.image.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h6><b>Title: </b>{{post.title}}</h6>
+                        <h6><b>Project Name: </b>{{post.project}}</h6>
+                        <a href="{{post.link}}" target="_blank">view site</a>
+                        <div>
+                            <span id="rateMe4" class="feedback">
+                               </span>
+                          </div>
+                    </div>
+                    <div class="card-footer">
+                        <img src="{{post.user.profile.image.url}}" width="50" height="50" alt=""
+                        style="border-radius: 50%; float:left;"><b>{{post.user_name}}</b> 
+                    </div>
+                  </div>
+            </div>
+     
+
+        {% endfor %}
+        <script>
+    // Rating Initialization
+$(document).ready(function() {
+    $('#rateMe4').mdbRate();
+  });
+        </script>
+    </div>
+</div>
+</div>
+
+{% endblock %}

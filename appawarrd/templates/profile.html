@@ -1,0 +1,64 @@
+{% extends 'base.html'%} 
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+
+{% block content%}
+<div class="home">
+<!doctype html>
+<html lang="en">
+  <head>
+	<title>Title</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+<style>
+	 .home{
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-image: url(https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940) ;
+
+	}
+	.container{
+		background: rgb(60, 60, 60);
+		background: rgba(60, 60, 60, 0.4);
+	}
+
+</style>
+<br><br><br>
+
+<div class="container">
+     <div class="content-section">
+		 <div class="media">
+			 <img class="rounded-circle account-img" src="{{user.profile.image.url}}" alt="" style="width:200px; height:200px">
+			 <div class="media-body">
+				 <h2 class="account-heading">{{ user.username }}</h2>
+				 <p class="text-secondary">{{ user.bio }}</p>
+				 <h5 class="text-primary">{{ user.email }}</h5>
+				 
+			 </div>
+		 </div>
+		 <form method="POST" enctype="multipart/form-data" >
+			 {% csrf_token %}
+			 <fieldset class="form-group">
+			 <legend class="border-bottom mb-4">Profile Info</legend>
+			  {{ u_form|crispy }}
+			  {{ p_form|crispy }}
+			 </fieldset>
+			 <div class="form-group">
+				 <button class="btn btn-outline-info" type="submit">Update</button>
+			 </div>
+		 </form>
+	 </div>
+	</div>
+	<br><br><br>
+</body>
+</html>
+
+{% endblock  %} 
+</div>

@@ -1,0 +1,83 @@
+{% extends 'registration/base.html' %} {% load bootstrap4 %} {% block content %}
+<!-- <div class="container"> -->
+<div id="signup">
+    <div class="row row2">
+        <div class="empty" style="height: 30vh;"></div>
+        <div class="col-md-4">
+            <img src="https://ucarecdn.com/f0e65890-b403-4316-8068-d1dd58c8f80f/instagram.png" class="img-fluid mt-5">
+        </div>
+        <div class="col-md-4 login">
+            {% if form.errors %}
+            <p>
+                Password or username is incorrect
+            </p>
+            {% endif %}
+            <div class=" panel panel-default">
+                <div class="panel-heading">
+                    <div style="align-content: center;">
+                        <h2 style="margin-left: 20%;"> Awwards</h2>
+                        <p>Sign in to document your moments and connect with friends.</p>
+                    </div>
+                    <h3 style="align-content: center;">
+                        Sign in
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form style="width: 50%;" action="/accounts/login/" method="post">
+                        {% csrf_token %} {% bootstrap_form form %}
+                        <div class="form_group">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Login">
+                        </div>
+                        <br>
+                    </form>
+                    <a href="/accounts/register/"> <button class="btn btn-primary btn-sm"> Sign Up</button> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+<style>
+    .row2 {
+        /* background-color: rgb(225, 217, 240); */
+        /* size: contain; */
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnJnGdIix1Vh0AHbyneggDM3krG7lov8ZnmB_JXLMwtKYCYc3L&s");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        height: 120vh;
+    }
+    .login {
+        margin-top: 30vh;
+        /* margin-left: 180px; */
+        width: 50%;
+    }
+    #signup {
+        height: 110vh !important;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+    @media only screen and (max-width: 600px) {
+        .login_pic {
+            display: none;
+        }
+        .row2 {
+            align-content: center;
+        }
+        .login {
+            margin-top: 5%;
+            margin-left: 70px;
+            width: 50%;
+        }
+        #signup {
+            height: 180vh !important;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            padding-bottom: 30%;
+        }
+        .row2 {
+            height: 100vh;
+        }
+    }
+</style>
+{% endblock %}

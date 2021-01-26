@@ -1,0 +1,39 @@
+{% extends 'registration/base.html' %} {% load bootstrap4 %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="https://ucarecdn.com/f0e65890-b403-4316-8068-d1dd58c8f80f/instagram.png" class="img-fluid mt-5">
+        </div>
+        <div class="col-md-6">
+            {% if form.errors %}
+            <p>Some credentials might be incorrect</p>
+            {% endif %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="text-center">
+                        Sign up
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form action="/accounts/register/" method="post">
+                        {% csrf_token %} {% bootstrap_form form %}
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
+                        </div>
+                        <input type="hidden" name="next" value=" {{next}} ">
+                    </form>
+                    <a href="/accounts/login/"> <button class="btn btn-primary btn-sm"> Log In</button> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnJnGdIix1Vh0AHbyneggDM3krG7lov8ZnmB_JXLMwtKYCYc3L&s");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+</style>
+{% endblock %}
