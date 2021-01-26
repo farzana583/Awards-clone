@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import  CreateUserForm,NewPostForm, UserUpdateForm, ProfileUpdateForm,SignUpForm
-from .models import Image
+from .models import Image,Ratings
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -27,14 +27,14 @@ def home(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
-    context = {
+        context = {
         'u_form': u_form,
         'p_form': p_form,
         'all_posts': all_posts
     }
     return render(request, 'index.html', context)
 
-
+    
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -52,6 +52,27 @@ def loginPage(request):
             context = {}
             return render(request,'registration/login.html',context)
         
+# def rate(request,id):
+#     if request.method =='POST':
+#         rates = Ratings.objects.filter(id = id)
+#         for rate in rates:
+#             if rate.user == request.user:
+#                 messages.info(request,'You cannot rate a project twice')
+#                 return redirect('singleproject',id)
+#         design = request.POST.get('design')
+#         usability = request.POST.get('usability')
+#         content = request.POST.get('content')
+#         if design and usability and content:
+#             project = Image.objects.get(id = id)
+#             rate = Ratings(design = design,usability = usability,content = content,project_id = project,user = request.user)
+#             rate.save()
+#             return redirect('singleproject',id)
+#         else:
+#             messages.info(request,'Input all fields')
+#             return redirect('singleproject',id)
+#     else:
+#         messages.info(request,'Input all fields')
+#         return redirect('singleproject',id)
 
 def logoutUser(request):
     logout(request)
@@ -109,6 +130,51 @@ def registerPage(request):
     else:
         form = SignUpForm()
     return render(request,'registration/registration_form.html',{'form':form})
+
+@login_required(login_url='accounts/login/')
+def rate(request,id):
+    if request.method =='POST':
+        rates = Ratings.objects.filter(id = id)
+        for rate in rates:
+            if rate.user == request.user:
+                messages.info(request,'You cannot rate a project twice')
+                return redirect('singleproject',id)
+        design = request.POST.get('design')
+        usability = request.POST.get('usability')
+        content = request.POST.get('content')
+        if design and usability and content:
+            project = Image.objects.get(id = id)
+            rate = Ratings(design = design,usability = usability,content = content,project_id = project,user = request.user)
+            rate.save()
+            return redirect('singleproject',id)
+        else:
+            messages.info(request,'Input all fields')
+            return redirect('singleproject',id)
+    else:
+        messages.info(request,'Input all fields')
+        return redirect('singleproject',id)
+
+def single_project(request,id):  
+    project = Image.objects.get(id = id)
+    rates = Ratings.objects.filter(project_id = id)
+    designrate = []
+    usabilityrate = []
+    contentrate = []
+    if rates:
+        for rate in rates:
+            designrate.append(rate.design)
+            usabilityrate.append(rate.usability)
+            contentrate.append(rate.content)
+        total = len(designrate)*10
+        design = round(sum(designrate)/total*100,1)
+        usability = round(sum(usabilityrate)/total*100,1)
+        content = round(sum(contentrate)/total*100,1)
+        return render(request,'single_project.html',{'project':project,'design':design,'usability':usability,'content':usability})
+    else:
+        design = 0
+        usability = 0
+        content = 0       
+        return render(request,'single_project.html',{'project':project,'design':design,'usability':usability,'content':usability})
     # if request.method == 'POST':
     #     form = CreateUserForm(request.POST)
     #     if form.is_valid():
