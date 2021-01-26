@@ -60,3 +60,12 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_profile(sender, instance, **kwargs):
         instance.profile.save()
+
+
+class Ratings(models.Model):
+    design = models.IntegerField(default=1)
+    usability = models.IntegerField(default=1)
+    content = models.IntegerField(default=1)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    project_id = models.ForeignKey(Image,on_delete=models.CASCADE)
+    
