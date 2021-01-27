@@ -1,0 +1,1 @@
+web: gunicorn awarrd.wsgi --log-file -
