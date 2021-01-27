@@ -1,6 +1,6 @@
 # Awarrd
 
-<!-- Awarrd Project_rate enables users to view various projects uploaded other users, rate and comment on them.An authenticated User can uploaded his/her project.The user can also view other user profiles along with how many projects the user has. -->
+Awarrd Project_rate enables users to view various projects uploaded other users, rate and comment on them.An authenticated User can uploaded his/her project.The user can also view other user profiles along with how many projects the user has.
 
 # Prerequisites
 
