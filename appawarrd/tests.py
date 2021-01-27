@@ -21,11 +21,11 @@ class TestImage(TestCase):
         self.assertTrue(len(before) == len(after))
 
 
-class TestProfile(TestCase):
-    def setUp(self):
-        self.user = User(username='Farzana')
-        self.user.save()
-        self.profile_test = Profile(user=self.user, image='default.jpg', bio='this is my website' )
+# class TestProfile(TestCase):
+#     def setUp(self):
+#         self.user = User(username='Farzana')
+#         self.user.save()
+#         self.profile_test = Profile(user=self.user, image='default.jpg', bio='this is my website' )
 
     def test_instance(self):
         self.assertTrue(isinstance(self.profile_test, Profile))
